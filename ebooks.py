@@ -142,7 +142,7 @@ if __name__=="__main__":
         else:
             print ebook_tweet
 
-        elif ebook_tweet == None:
+        if ebook_tweet == None:
             print "Tweet is empty, sorry."
         else:
             print "TOO LONG: " + ebook_tweet
