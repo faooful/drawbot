@@ -101,9 +101,9 @@ if __name__=="__main__":
 
         source_length = len(source_tweets)
         word_one = source_tweets[random.randrange(source_length)]
-        word_two = None
-        while not word_two and word_two == word_one:
-            word_two = source_tweets[random.randrange(source_length)]
+        # word_two = None
+        # while not word_two and word_two == word_one:
+        word_two = source_tweets[random.randrange(source_length)]
         ebook_tweet = " ".join([word_one, word_two])
 
         # #randomly drop the last word, as Horse_ebooks appears to do.
