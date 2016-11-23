@@ -57,7 +57,7 @@ def grab_tweets(api, max_id=None):
 
 if __name__=="__main__":
     order = ORDER
-    if DEBUG==False:
+    if DEBUG==False and ODDS!=0:
         guess = random.choice(range(ODDS))
     else:
         guess = 0
@@ -74,14 +74,8 @@ if __name__=="__main__":
             for handle in SOURCE_ACCOUNTS:
                 user=handle
                 api=connect()
-                handle_stats = api.GetUser(screen_name=user)
-                status_count = handle_stats.statuses_count
                 max_id=None
-                if status_count<3200:
-                    my_range = (status_count/200) + 1
-                else:
-                    my_range = 17
-                for x in range(my_range)[1:]:
+                for x in range(17)[1:]:
                     source_tweets_iter, max_id = grab_tweets(api,max_id)
                     source_tweets += source_tweets_iter
                 print "{0} tweets found in {1}".format(len(source_tweets), handle)
@@ -106,7 +100,7 @@ if __name__=="__main__":
            print ebook_tweet
 
         #if a tweet is very short, this will randomly add a second sentence to it.
-        if ebook_tweet != None and len(ebook_tweet) < 40:
+        if ebook_tweet != None and len(ebook_tweet) < 20:
             rando = random.randint(0,10)
             if rando == 0 or rando == 7:
                 print "Short tweet. Adding another sentence randomly"
