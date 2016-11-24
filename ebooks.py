@@ -9,7 +9,7 @@
 # account settings, this script will tweet at twitter.com/lacunybot
 
 # Housekeeping: do not edit
-import tweepy, time
+import twitter, time
 from credentials import *
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
