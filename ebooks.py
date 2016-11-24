@@ -88,23 +88,16 @@ if __name__=="__main__":
                 if len(source_tweets) == 0:
                     print "Error fetching tweets from Twitter. Aborting."
                     sys.exit()
-        # mine = markov.MarkovChainer(order)
-        # for tweet in source_tweets:
-        #     if re.search('([\.\!\?\"\']$)', tweet):
-        #         pass
-        #     else:
-        #         tweet+="."
-        #     mine.add_text(tweet)
-        #
-        # for x in range(0,10):
-        #     ebook_tweet = mine.generate_sentence()
+        mine = markov.MarkovChainer(order)
+        for tweet in source_tweets:
+            if re.search('([\.\!\?\"\']$)', tweet):
+                pass
+            else:
+                tweet+="."
+            mine.add_text(tweet)
 
-        source_length = len(source_tweets)
-        word_one = source_tweets[random.randrange(source_length)]
-        # word_two = None
-        # while not word_two and word_two == word_one:
-        word_two = source_tweets[random.randrange(source_length)]
-        ebook_tweet = " ".join([word_one, word_two])
+        for x in range(0,10):
+            ebook_tweet = mine.generate_sentence()
 
         #randomly drop the last word, as Horse_ebooks appears to do.
         if random.randint(0,4) == 0 and re.search(r'(in|to|from|for|with|by|our|of|your|around|under|beyond)\s\w+$', ebook_tweet) != None:
@@ -127,7 +120,7 @@ if __name__=="__main__":
                 print "ALL THE THINGS"
                 ebook_tweet = ebook_tweet.upper()
 
-        throw out tweets that match anything from the source account.
+        #throw out tweets that match anything from the source account.
         if ebook_tweet != None and len(ebook_tweet) < 110:
             for tweet in source_tweets:
                 if ebook_tweet[:-1] not in tweet:
@@ -136,13 +129,13 @@ if __name__=="__main__":
                     print "TOO SIMILAR: " + ebook_tweet
                     sys.exit()
 
-        if DEBUG == False:
-            status = api.PostUpdate(ebook_tweet)
-            print status.text.encode('utf-8')
-        else:
-            print ebook_tweet
+            if DEBUG == False:
+                status = api.PostUpdate(ebook_tweet)
+                print status.text.encode('utf-8')
+            else:
+                print ebook_tweet
 
-        if ebook_tweet == None:
+        elif ebook_tweet == None:
             print "Tweet is empty, sorry."
         else:
             print "TOO LONG: " + ebook_tweet
